@@ -1,0 +1,8 @@
+<div class="select-Categories pb-30">
+    <div class="small-tittle mb-20">
+        <h4>دسته بندی</h4>
+    </div>
+    {% for category in categories %}
+        <h4 class="container"><a href="{% url 'product_categories_list' cat=category.url_title %}">{{ category.title }}</a></h4>
+    {% endfor %}
+</div>

@@ -1,0 +1,60 @@
+{% extends 'shared/layout.html' %}
+
+{% block title %}
+    ورود کاربر
+{% endblock %}
+
+{% block content %}
+    <main class="login-bg">
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'home_page' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">ورود</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="login-form-area">
+            <div class="login-form">
+
+                <div class="login-heading">
+                    <span>ورود</span>
+                    <p>برای دسترسی به سایت وارد شوید</p>
+                </div>
+
+                <form action="{% url 'login_page' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <div class="single-input-fields">
+                            <label>نام کاربری یا ایمیل</label>
+                            {{ login_form.email }}
+                            {{ login_form.email.errors }}
+                        </div>
+                        <div class="single-input-fields">
+                            <label>رمز عبور</label>
+                            {{ login_form.password }}
+                            {{ login_form.password.errors }}
+                        </div>
+                        <div class="single-input-fields login-check">
+                            <input type="checkbox" id="fruit1" name="keep-log">
+                            <label for="fruit1">مرا به یاد داشته باش!</label>
+                            <a href="{% url 'forget_pass' %}" class="f-right">رمز خود را فراموش کرده اید؟</a>
+                        </div>
+                    </div>
+
+                    <div class="login-footer">
+                        <p>حساب کاربری ندارید؟ <a href="{% url 'register_page' %}">ثبت نام</a> کنید.</p>
+                        <button type="submit" class="submit-btn3">ورود</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}

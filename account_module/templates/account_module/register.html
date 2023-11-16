@@ -1,0 +1,63 @@
+{% extends 'shared/layout.html' %}
+
+{% block title %}
+    ثبت نام کاربر
+{% endblock %}
+
+
+{% block content %}
+    <main class="register-bg">
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'home_page' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">ثبت نام</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="register-form-area">
+            <div class="register-form">
+
+                <div class="register-heading">
+                    <span>ثبت نام</span>
+                    <p>برای دسترسی به سایت ثبت نام کنید</p>
+                </div>
+
+                <form action="{% url 'register_page' %}" method="post">
+                    {% csrf_token %}
+                    <div class="input-box">
+                        <div class="single-input-fields">
+                            <label>ایمیل</label>
+                            {{ register_form.email }}
+                            {{ register_form.email.errors }}
+                        </div>
+                        <div class="single-input-fields">
+                            <label>رمز عبور</label>
+                            {{ register_form.password }}
+                            {{ register_form.password.errors }}
+                        </div>
+                        <div class="single-input-fields">
+                            <label>تأییدیه رمز عبور</label>
+                            {{ register_form.confirm_password }}
+                            {{ register_form.confirm_password.errors }}
+                        </div>
+                    </div>
+                    <div class="register-footer">
+                        <p>حساب کاربری دارید؟ <a href="{% url 'login_page' %}">وارد شوید</a></p>
+                        <button type="submit" class="submit-btn3">ثبت نام</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

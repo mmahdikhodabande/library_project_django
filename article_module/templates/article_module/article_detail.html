@@ -1,0 +1,537 @@
+{% extends 'shared/layout.html' %}
+{% load poll_extras %}
+
+{% block title %}
+    توضیحات مقاله
+{% endblock %}
+
+{% block content %}
+    <main>
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'home_page' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                    </li>
+                    <li>
+                        <a href="{% url 'article_page' %}" class="breadcrumb-link">مقاله</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">جزئیات مقاله</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="single-blog">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+
+                        <div class="single-blog-row d-flex align-items-center mb-0">
+                            <div class="single-blog-img">
+                                <img src="{{ article.image.url }}" alt="">
+                            </div>
+                            <div class="blog-caption">
+                                <div class="blog-title">
+                                    <h1>{{ article.title }}</h1>
+                                </div>
+                                <div class="meta">
+                                    <p> نویسنده مقاله: {{ article.auther.get_full_name }}</p>
+                                    <p>تاریخ انتشار:<span>{{ article.create_date | show_jalali_date }}</span></p>
+                                    <div class="review">
+                                        <div class="rating">
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        </div>
+                                        <p>(<span>{{ comments.count }}</span> نظر)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <section class="our-client section-padding best-selling">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-xl-1 col-xl-10">
+                        <div class="nav-button f-right">
+
+                            <nav>
+                                <div class="nav nav-tabs " id="nav-tab" role="tablist">
+                                    <a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one"
+                                       role="tab" aria-controls="nav-one" aria-selected="true">متن مقاله</a>
+                                    <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four"
+                                       role="tab" aria-controls="nav-four" aria-selected="false">نظرات</a>
+                                </div>
+                            </nav>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
+
+                        <div class="row">
+                            <div class="desc-tab offset-xl-1 col-lg-9">
+                                <p>{{ article.text }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
+
+                        <div class="row">
+                            <div class="comment-tab offset-xl-1 col-lg-9">
+                                <div class="container bootdey">
+                                    <div class="col-md-12 bootstrap snippets">
+
+                                        {% if request.user.is_authenticated %}
+                                            <div class="panel">
+                                                <div class="panel-body">
+                                                <textarea id="commendText" class="form-control" rows="2"
+                                                          placeholder="نظر شما در مورد این مقاله چیست؟"></textarea>
+                                                    <div class="mar-top clearfix">
+                                                        <button class="btn btn-sm btn-primary pull-right" type="submit">
+                                                            <i
+                                                                    class="fa fa-pencil fa-fw"
+                                                                    onclick="SendCommendText()"></i> ارسال نظر
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="alert alert-warning">
+                                                برای ثبت نظر می بایست ابتدا <a href="{% url 'login_page' %}">لاگین</a>
+                                                کنید
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <!-- Newsfeed Content -->
+                                                <!--===================================================-->
+                                                {% for comment in comments %}
+                                                    <div class="media-block">
+                                                        {% if comment.user.avatar %}
+                                                            <a class="media-right" href="#"><img
+                                                                    class="img-circle img-sm"
+                                                                    alt="Profile Picture"
+                                                                    src="{{ comment.user.avatar.url }}"></a>
+                                                        {% else %}
+                                                            <a class="media-right" href="#"><img
+                                                                    class="img-circle img-sm"
+                                                                    alt="Profile Picture"
+                                                                    src="/static/img/author/barbara.jpg"></a>
+                                                        {% endif %}
+                                                        <div class="media-body">
+                                                            <div class="mar-btm">
+                                                                <a href="#"
+                                                                   class="btn-link text-semibold media-heading box-inline">{{ comment.user.get_full_name }}</a>
+                                                                <p class="text-muted text-sm"><i
+                                                                        class="fa fa-check fa-lg"></i>نویسنده</p>
+                                                            </div>
+                                                            <p>{{ comment.text }}</p>
+                                                            <div class="pad-ver">
+
+                                                                <a class="btn btn-sm btn-default btn-hover-primary"
+                                                                   href="#">پاسخ</a>
+                                                            </div>
+                                                            <hr>
+
+                                                            <!-- Comments -->
+                                                            <div>
+                                                                {% for sub_comment in comment.articlecommend_set.all %}
+                                                                    <div class="media-block">
+                                                                        {% if sub_comment.user.avatar %}
+                                                                            <a class="media-right" href="#"><img
+                                                                                    class="img-circle img-sm"
+                                                                                    alt="Profile Picture"
+                                                                                    src="{{ sub_comment.user.avatar.url }}"></a>
+                                                                        {% else %}
+                                                                            <a class="media-right" href="#"><img
+                                                                                    class="img-circle img-sm"
+                                                                                    alt="Profile Picture"
+                                                                                    src="/static/img/comments/second-comment.jpg"></a>
+                                                                        {% endif %}
+                                                                        <div class="media-body">
+                                                                            <div class="mar-btm">
+                                                                                <a href="#"
+                                                                                   class="btn-link text-semibold media-heading box-inline">{{ sub_comment.user.get_full_name }}</a>
+                                                                                <p class="text-muted text-sm"><i
+                                                                                        class="fa fa-person fa-lg"></i>کاربر
+                                                                                    سایت</p>
+                                                                            </div>
+                                                                            <p> {{ sub_comment.text }} </p>
+                                                                            <div class="pad-ver">
+
+                                                                                <a class="btn btn-sm btn-default btn-hover-primary"
+                                                                                   href="#">پاسخ</a>
+                                                                            </div>
+                                                                            <hr>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endfor %}
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+
+                                                <!-- End Newsfeed Content -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="blog-meta">
+            <div class="container">
+                <div class="tag">
+                    <p>برچسب:</p>
+                    <a href="#" target="_self"><span>#</span>کتابخوانی</a>
+                    <a href="#" target="_self"><span>#</span>معرفی کتاب</a>
+                    <a href="#" target="_self"><span>#</span>کتاب روانشناسی</a>
+                    <a href="#" target="_self"><span>#</span>خودشناسی</a>
+                    <a href="#" target="_self"><span>#</span>نویسندگی</a>
+                </div>
+                <div class="cat">
+                    <p>دسته بندی:</p>
+                    <a href="#" target="_self">روانشناسی</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="related-blogs section-bg">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-7 col-lg-8">
+                        <div class="section-tittle text-center mb-55">
+                            <h2>مطالب مرتبط</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="related-blogs-box slick-initialized slick-slider slick-dotted">
+
+
+                                <div class="slick-list draggable">
+                                    <div class="slick-track"
+                                         style="opacity: 1; width: 3080px; transform: translate3d(1232px, 0px, 0px);">
+                                        <div class="properties pb-20 slick-slide slick-cloned" style="width: 308px;"
+                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control02"
+                                             data-slick-index="-2" aria-hidden="true">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="-1"><img
+                                                            src="/static/img/blog/related-3.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="-1">معرفی کتاب‌هایی با
+                                                        مضمون خیانت</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="properties pb-20 slick-slide slick-cloned" style="width: 308px;"
+                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control03"
+                                             data-slick-index="-1" aria-hidden="true">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="-1"><img
+                                                            src="/static/img/blog/related-4.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="-1">معرفی رمان‌های ایرانی
+                                                        پرطرفدار</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="properties pb-20 slick-slide" style="width: 308px;" tabindex="-1"
+                                             role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00"
+                                             data-slick-index="0" aria-hidden="true">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="-1"><img
+                                                            src="/static/img/blog/related-1.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="-1">معرفی بهترین رمان‌های
+                                                        طنز ایرانی</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="properties pb-20 slick-slide" style="width: 308px;" tabindex="-1"
+                                             role="tabpanel" id="slick-slide01" aria-describedby="slick-slide-control01"
+                                             data-slick-index="1" aria-hidden="true">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="-1"><img
+                                                            src="/static/img/blog/related-2.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="-1">معرفی کتاب هایی درباره
+                                                        موسیقی</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="properties pb-20 slick-slide slick-current slick-active"
+                                             style="width: 308px;" tabindex="0" role="tabpanel" id="slick-slide02"
+                                             aria-describedby="slick-slide-control02" data-slick-index="2"
+                                             aria-hidden="false">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="0"><img
+                                                            src="/static/img/blog/related-3.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="0">معرفی کتاب‌هایی با
+                                                        مضمون خیانت</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="properties pb-20 slick-slide slick-active" style="width: 308px;"
+                                             tabindex="0" role="tabpanel" id="slick-slide03"
+                                             aria-describedby="slick-slide-control03" data-slick-index="3"
+                                             aria-hidden="false">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="0"><img
+                                                            src="/static/img/blog/related-4.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="0">معرفی رمان‌های ایرانی
+                                                        پرطرفدار</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="properties pb-20 slick-slide slick-cloned" style="width: 308px;"
+                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control00"
+                                             data-slick-index="4" aria-hidden="true">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="-1"><img
+                                                            src="/static/img/blog/related-1.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="-1">معرفی بهترین رمان‌های
+                                                        طنز ایرانی</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="properties pb-20 slick-slide slick-cloned" style="width: 308px;"
+                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control01"
+                                             data-slick-index="5" aria-hidden="true">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="-1"><img
+                                                            src="/static/img/blog/related-2.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="-1">معرفی کتاب هایی درباره
+                                                        موسیقی</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="properties pb-20 slick-slide slick-cloned" style="width: 308px;"
+                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control02"
+                                             data-slick-index="6" aria-hidden="true">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="-1"><img
+                                                            src="/static/img/blog/related-3.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="-1">معرفی کتاب‌هایی با
+                                                        مضمون خیانت</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="properties pb-20 slick-slide slick-cloned" style="width: 308px;"
+                                             tabindex="-1" role="tabpanel" aria-describedby="slick-slide-control03"
+                                             data-slick-index="7" aria-hidden="true">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="book-details.html" tabindex="-1"><img
+                                                            src="/static/img/blog/related-4.jpg" alt=""></a>
+                                                </div>
+                                                <div class="properties-caption">
+                                                    <h3><a href="book-details.html" tabindex="-1">معرفی رمان‌های ایرانی
+                                                        پرطرفدار</a></h3>
+                                                    <div class="properties-footer">
+                                                        <p>
+                                                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                                                            با
+                                                            استفاده از طراحان گرافیک است، چاپگرها و
+                                                        </p>
+                                                        <div class="review">
+                                                            <p>(<span>12</span> نظر)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="slick-dots" style="display: block;" role="tablist">
+                                    <li class="" role="presentation">
+                                        <button type="button" role="tab" id="slick-slide-control00"
+                                                aria-controls="slick-slide00" aria-label="1 of 2" tabindex="-1">1
+                                        </button>
+                                    </li>
+                                    <li class="" role="presentation">
+                                        <button type="button" role="tab" id="slick-slide-control01"
+                                                aria-controls="slick-slide01" aria-label="2 of 2" tabindex="-1">2
+                                        </button>
+                                    </li>
+                                    <li role="presentation" class="slick-active">
+                                        <button type="button" role="tab" id="slick-slide-control02"
+                                                aria-controls="slick-slide02" aria-label="3 of 2" tabindex="0"
+                                                aria-selected="true">3
+                                        </button>
+                                    </li>
+                                    <li role="presentation">
+                                        <button type="button" role="tab" id="slick-slide-control03"
+                                                aria-controls="slick-slide03" aria-label="4 of 2" tabindex="-1">4
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="subscribe-area">
+            <div class="container">
+                <div class="subscribe-caption text-center subscribe-padding section-img2-bg"
+                     data-background="/static/img/bg/newsletter-bg.jpg"
+                     style="background-image: url(&quot;/static/img/bg/newsletter-bg.jpg&quot;);">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-lg-8 col-md-9">
+                            <h3>خبرنامه کابانا</h3>
+                            <p>هر ماه یک کتاب الکترونیکی رایگان به ایمیل اعضای خبرنامه ارسال می گردد.</p>
+                            <form action="#">
+                                <input type="text" placeholder="ایمیل">
+                                <button class="subscribe-btn">عضویت در خبرنامه</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+{% endblock %}

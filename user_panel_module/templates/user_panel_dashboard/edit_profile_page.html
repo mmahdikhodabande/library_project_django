@@ -1,0 +1,35 @@
+{% extends 'shared/layout.html' %}
+{% load render_partial %}
+
+{% block title %}
+    ویرایش اطلاعات کاربری
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+                {% render_partial 'user_panel_module.views.user_panel_component' %}
+                <br>
+                <br>
+
+                {% if current_user.avatar %}
+                    <a class="thumbnail"><img style="width: 59%" src="{{ current_user.avatar.url }}" alt=""></a>
+                {% endif %}
+
+            </div>
+            <div class="col-md-8">
+                <form action="{% url 'edit_profile_page' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ edit_form }}
+                    <br>
+                    <br>
+
+                    <button class="btn btn-success" type="submit"> ثبت</button>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

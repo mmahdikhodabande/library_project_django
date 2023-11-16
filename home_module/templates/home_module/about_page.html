@@ -1,0 +1,160 @@
+{% extends 'shared/layout.html' %}
+
+{% block title %}
+    درباره ما
+{% endblock %}
+
+{% block content %}
+    <main>
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'home_page' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                        <span class="breadcrumb-active">درباره ما</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider-area">
+                        <div class="slider-height2 slider-bg5 d-flex align-items-center justify-content-center">
+                            <div class="hero-caption hero-caption2">
+                                <h2>درباره ما</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="about-details">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-xl-1 col-xl-10 col-lg-8">
+                        <div class="section-tittle mb-15">
+                            <h2>داستان ما از کجا شروع شد؟</h2>
+                        </div>
+                    </div>
+                    <div class="offset-xl-1 col-xl-9">
+                        <div class="about-pera">
+                            <p> {{ site_setting.about_us }} </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="offset-xl-1 col-xl-10 col-lg-8">
+                        <div class="section-tittle mb-15">
+                            <h2>هدف اصلی ما</h2>
+                        </div>
+                    </div>
+                    <div class="offset-xl-1 col-xl-9">
+                        <div class="about-pera p-0">
+                            <p> {{ site_setting.about_us_text }} </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-wrappper section-bg">
+            <div class="footer-area footer-padding">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-3 col-lg-5 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="single-footer-caption mb-30">
+
+                                    <div class="footer-logo mb-25">
+                                        <a href="index.html"><img src="img/logo/logo2_footer.png" alt=""></a>
+                                    </div>
+                                    <div class="footer-tittle">
+                                        <div class="footer-pera">
+                                            <p>قالب کابانا یک قالب HTML ایرانی است که در زمینه فروش آنلاین کتاب کدنویسی
+                                                شده است.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="footer-social">
+                                        <a href="#"><i class="fab fa-facebook"></i></a>
+                                        <a href="#"><i class="fab fa-instagram"></i></a>
+                                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                        <a href="#"><i class="fab fa-youtube"></i></a>
+                                        <a href="#"><i class="fab fa-telegram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>دسته بندی موضوعی</h4>
+                                    <ul>
+                                        <li><a href="categories.html">تاریخ</a></li>
+                                        <li><a href="categories.html">روانشناسی</a></li>
+                                        <li><a href="categories.html">کسب و کار</a></li>
+                                        <li><a href="categories.html">علوم</a></li>
+                                        <li><a href="categories.html">رمان</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>&nbsp;</h4>
+                                    <ul>
+                                        <li><a href="categories.html">اقتصادی</a></li>
+                                        <li><a href="categories.html">مذهبی</a></li>
+                                        <li><a href="categories.html">جغرافیا</a></li>
+                                        <li><a href="categories.html">علوم سیاسی</a></li>
+                                        <li><a href="categories.html">بیوگرافی</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>راهنمای سایت</h4>
+                                    <ul class="mb-20">
+                                        <li><a href="about.html">درباره ما</a></li>
+                                        <li><a href="contact.html">سوالات متداول</a></li>
+                                        <li><a href="contact.html">ارتباط با مدیر</a></li>
+                                        <li><a href="contact.html">درخواست همکاری</a></li>
+                                        <li><a href="blog-details.html">معرفی کتاب</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom-area">
+                <div class="container">
+                    <div class="footer-border">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-xl-12 ">
+                                <div class="footer-copy-right text-center">
+                                    کپی رایت © تمام حقوق محفوظ می باشد | طراحی شده با <i class="fa fa-heart color-danger" aria-hidden="true"></i> توسط <a href="https://www.rtl-theme.com/author/samyar1/products/" style="color: rgb(0, 0, 0)" target="_blank" rel="nofollow noopener">آی پلاس</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'shared/layout.html' %}
+{% load render_partial %}
+
+{% block title %}
+    پنل کاربری
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 fa-pull-right">
+                <br>
+                <br>
+                {% render_partial 'user_panel_module.views.user_panel_component' %}
+                <br>
+            </div>
+        </div>
+    </div>
+{% endblock %}

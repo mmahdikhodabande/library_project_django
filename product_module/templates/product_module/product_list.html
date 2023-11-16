@@ -1,0 +1,142 @@
+{% extends 'shared/layout.html' %}
+{% load thumbnail %}
+{% load render_partial %}
+
+{% block title %}
+    لیست محصولات
+{% endblock %}
+
+{% block content %}
+    <main>
+
+        <div class="breadcrumb-items">
+            <div class="row">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="{% url 'home_page' %}" class="breadcrumb-link">صفحه اصلی</a>
+                    </li>
+                    <li class="chevron"><span class="fa fa-chevron-left"></span></li>
+                    <li>
+                    </li>
+                    <li>
+                        <span class="breadcrumb-active">دسته بندی کتب</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider-area">
+                        <div class="slider-height2 slider-bg4 d-flex align-items-center">
+                            <div class="hero-caption hero-caption2">
+                                <h2>دسته بندی موضوعی</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="listing-area pt-50 pb-50">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+
+                        <div class="category-listing mb-50">
+
+                            <div class="single-listing">
+
+                                {% render_partial 'product_module.views.product_categories_component' %}
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-xl-8 col-lg-8 col-md-6">
+                        <div class="row justify-content-end">
+                            <div class="col-xl-4">
+                                <div class="product_page_tittle">
+                                    <div class="short_by">
+                                        <select name="#" id="product_short_list" style="display: none;">
+                                            <option>مرتب سازی براساس محبوبیت</option>
+                                            <option>مرتب سازی براساس نام</option>
+                                            <option>مرتب سازی براساس جدیدترین</option>
+                                            <option>مرتب سازی براساس قدیمی ترین</option>
+                                            <option>مرتب سازی براساس قیمت</option>
+                                        </select>
+                                        <div class="nice-select" tabindex="0"><span class="current">مرتب سازی براساس قدیمی ترین</span>
+                                            <ul class="list">
+                                                <li data-value="مرتب سازی براساس محبوبیت" class="option">مرتب سازی
+                                                    براساس محبوبیت
+                                                </li>
+                                                <li data-value="مرتب سازی براساس نام" class="option focus">مرتب سازی
+                                                    براساس نام
+                                                </li>
+                                                <li data-value="مرتب سازی براساس جدیدترین" class="option">مرتب سازی
+                                                    براساس جدیدترین
+                                                </li>
+                                                <li data-value="مرتب سازی براساس قدیمی ترین" class="option selected">
+                                                    مرتب سازی براساس قدیمی ترین
+                                                </li>
+                                                <li data-value="مرتب سازی براساس قیمت" class="option">مرتب سازی براساس
+                                                    قیمت
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="best-selling p-0">
+                            <div class="row">
+
+                                {% for product in products %}
+                                    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-12 col-sm-6">
+                                        <div class="properties pb-30">
+                                            <div class="properties-card">
+                                                <div class="properties-img">
+                                                    <a href="{% url 'product_detail' slug=product.slug %}">
+
+                                                        {% thumbnail product.image "198x298" quality=95 crop="center" as im %}
+                                                            <img src="{{ im.url }}" width="{{ im.width }}"
+                                                                 height="{{ im.height }}">
+                                                        {% endthumbnail %}
+                                                    </a>
+                                                </div>
+                                                <div>
+                                                    <h3>
+                                                        <a href="{% url 'product_detail' slug=product.slug %}">{{ product.title }}</a>
+                                                    </h3>
+                                                    {% if product.auther %}
+                                                        <p>
+                                                            <a href="{% url 'product_detail' slug=product.slug %}">{{ product.authered }}</a>
+                                                        </p>
+
+                                                    {% endif %}
+                                                    <div class="properties-footer d-flex justify-content-between align-items-center">
+                                                    </div>
+                                                    <div class="price">
+                                                        <p>{{ product.price }}<span>تومان</span></p>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+{% endblock %}
