@@ -55,43 +55,16 @@
                             </div>
                         </div>
 
+                        {% for banner in banners %}
+                            <a href="{{ banner.url }}">
+                                <img src="{{ banner.image.url }}" width="250" alt="">
+                            </a>
+                        {% endfor %}
+
+
                     </div>
 
                     <div class="col-xl-8 col-lg-8 col-md-6">
-                        <div class="row justify-content-end">
-                            <div class="col-xl-4">
-                                <div class="product_page_tittle">
-                                    <div class="short_by">
-                                        <select name="#" id="product_short_list" style="display: none;">
-                                            <option>مرتب سازی براساس محبوبیت</option>
-                                            <option>مرتب سازی براساس نام</option>
-                                            <option>مرتب سازی براساس جدیدترین</option>
-                                            <option>مرتب سازی براساس قدیمی ترین</option>
-                                            <option>مرتب سازی براساس قیمت</option>
-                                        </select>
-                                        <div class="nice-select" tabindex="0"><span class="current">مرتب سازی براساس قدیمی ترین</span>
-                                            <ul class="list">
-                                                <li data-value="مرتب سازی براساس محبوبیت" class="option">مرتب سازی
-                                                    براساس محبوبیت
-                                                </li>
-                                                <li data-value="مرتب سازی براساس نام" class="option focus">مرتب سازی
-                                                    براساس نام
-                                                </li>
-                                                <li data-value="مرتب سازی براساس جدیدترین" class="option">مرتب سازی
-                                                    براساس جدیدترین
-                                                </li>
-                                                <li data-value="مرتب سازی براساس قدیمی ترین" class="option selected">
-                                                    مرتب سازی براساس قدیمی ترین
-                                                </li>
-                                                <li data-value="مرتب سازی براساس قیمت" class="option">مرتب سازی براساس
-                                                    قیمت
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="best-selling p-0">
                             <div class="row">
 

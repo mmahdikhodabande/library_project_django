@@ -1,8 +1,9 @@
-from django.http import HttpRequest, JsonResponse, HttpResponse
+from django.http import HttpRequest
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 from .models import Article, ArticleCategory, ArticleCommend
+from site_setting.models import SiteBanner
 
 
 # Create your views here.
@@ -15,6 +16,8 @@ class ArticleListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
+        context['banners'] = SiteBanner.objects.filter(is_active=True, position__iexact=SiteBanner.PositionBannerChoices.article_list)
+        context['articles_numbers'] = Article.objects.filter(is_active=True).order_by('-id')
         return context
 
     def get_queryset(self):

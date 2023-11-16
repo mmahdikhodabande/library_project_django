@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView
 
 from .models import Product, ProductCategory
+from site_setting.models import SiteBanner
 
 
 # Create your views here.
@@ -16,6 +17,8 @@ class ProductListview(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data()
         context['products'] = Product.objects.filter(is_active=True).all()
+        context['banners'] = SiteBanner.objects.filter(is_active=True,
+                                                       position__iexact=SiteBanner.PositionBannerChoices.article_list)
         return context
 
     def get_queryset(self):

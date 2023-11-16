@@ -2,7 +2,7 @@ from django.views.generic import CreateView
 
 from .forms import ContactUsForm
 from .models import ContactUsModel
-from site_setting.models import SiteSetting
+from site_setting.models import SiteSetting, SiteBanner
 
 
 # Create your views here.
@@ -14,7 +14,9 @@ class ContactUsView(CreateView):
     success_url = '/contact-us/'
     context_object_name = 'form'
 
-    def get_context_data(self,*args, **kwargs):
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['site_setting'] = SiteSetting.objects.filter(is_active_setting=True).first()
+        context['banners'] = SiteBanner.objects.filter(is_active=True,
+                                                       position__iexact=SiteBanner.PositionBannerChoices.contact_us)
         return context
