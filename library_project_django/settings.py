@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account_module',
     'contact_module',
     'article_module',
+    'order_module',
     'site_setting',
     'django_render_partial',
     'sorl.thumbnail',
