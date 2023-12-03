@@ -27,10 +27,12 @@
                                             <a href="cart.html"><img src="/static/img/icon/cart.svg" alt=""></a>
                                         </li>
                                         {% if request.user.is_authenticated %}
-                                        <li><a href="{% url 'user_panel_page' %}" class="btn header-btn">پنل کاربری</a></li>
-                                        <li><a href="{% url 'log_out' %}" class="btn header-btn">خروج</a></li>
-                                            {% else %}
-                                            <li><a href="{% url 'register_page' %}" class="btn header-btn">ثبت نام </a></li>
+                                            <li><a href="{% url 'user_panel_page' %}" class="btn header-btn">پنل
+                                                کاربری</a></li>
+                                            <li><a href="{% url 'log_out' %}" class="btn header-btn">خروج</a></li>
+                                        {% else %}
+                                            <li><a href="{% url 'register_page' %}" class="btn header-btn">ثبت نام </a>
+                                            </li>
                                             <li><a href="{% url 'login_page' %}" class="btn header-btn">ورود</a></li>
                                         {% endif %}
                                     </ul>
@@ -57,48 +59,17 @@
                                         <li><a href="#">دسته بندی موضوعی</a>
 
                                             <div class="megadrop">
-                                                <div class="mega-head">
-                                                    <div class="col">
-                                                        <ul>
-                                                            <li><a href="categories.html">تاریخی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">جغرافیا</a>
-                                                            </li>
-                                                            <li><a href="categories.html">اجتماعی</a>
-                                                            </li>
-                                                        </ul>
+                                                {% for category in category_product %}
+                                                    <div class="submenu">
+                                                        <div class="col">
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="{% url 'categories_list' category.id %}">{{ category.title }}</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
-                                                    <div class="col">
-                                                        <ul>
-                                                            <li><a href="categories.html">ورزشی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">پزشکی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">روانشناسی</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col">
-                                                        <ul>
-                                                            <li><a href="categories.html">علمی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">سینما و تئاتر</a>
-                                                            </li>
-                                                            <li><a href="categories.html">رمان و داستان</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="col">
-                                                        <ul>
-                                                            <li><a href="categories.html">فلسفه</a>
-                                                            </li>
-                                                            <li><a href="categories.html">آموزشی</a>
-                                                            </li>
-                                                            <li><a href="categories.html">دینی و مذهبی</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                                {% endfor %}
                                                 <div class="mega-foot">
                                                     <div class="col-12">
                                                         <a href="author.html">صفحه نویسندگان</a>
@@ -112,7 +83,7 @@
                                             <ul class="submenu">
                                                 <li><a href="cart.html">سبد خرید</a></li>
                                                 <li><a href="checkout.html">تسویه حساب</a></li>
-                                                <li><a href="categories.html">دسته بندی</a></li>
+                                                <li><a href="{% url 'product_list' %}">لیست محصولات </a></li>
                                                 <li><a href="author.html">نویسندگان</a></li>
                                                 <li><a href="book-details.html">جزئیات کتاب</a></li>
                                                 <li><a href="blog-details.html">جزئیات وبلاگ</a></li>
